@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>jester</title>
+<title>Jester System</title>
 
 <style>
 html, body {
@@ -15,13 +15,10 @@ color: white;
 font-family: Arial, sans-serif;
 }
 
-/* BOOT SCREEN */
+/* BOOT */
 #boot {
 position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
+inset: 0;
 background: black;
 display: flex;
 align-items: center;
@@ -42,42 +39,41 @@ animation: bootFade 3s forwards;
 100% { opacity: 0; visibility: hidden; }
 }
 
-/* VIGNETTE (NOW SLIGHT RED HORROR TINT) */
-body::before {
-content: "";
+/* === FULLSCREEN JESTER BACKGROUND === */
+.bg {
 position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-pointer-events: none;
-z-index: 1;
-
-background: radial-gradient(circle,
-rgba(0,0,0,0) 35%,
-rgba(0,0,0,0.85) 100%),
-radial-gradient(circle at 20% 20%,
-rgba(120,0,0,0.08),
-transparent 40%);
-
-animation: pulseRed 8s infinite;
+inset: 0;
+z-index: 0;
+overflow: hidden;
 }
 
-@keyframes pulseRed {
-0%,100% { filter: hue-rotate(0deg); opacity: 1; }
-50% { opacity: 0.9; }
+.bg img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+
+/* THIS is what removes “box feel” */
+filter: blur(1px) brightness(0.55) contrast(1.1);
+transform: scale(1.05);
+}
+
+/* DARK OVERLAY (makes everything consistent) */
+.overlay {
+position: fixed;
+inset: 0;
+z-index: 1;
+background: radial-gradient(circle,
+rgba(0,0,0,0.2) 20%,
+rgba(0,0,0,0.85) 100%);
 }
 
 /* SCANLINES */
 body::after {
 content: "";
 position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-pointer-events: none;
+inset: 0;
 z-index: 2;
+pointer-events: none;
 
 background: repeating-linear-gradient(
 to bottom,
@@ -88,41 +84,24 @@ transparent 6px
 );
 
 opacity: 0.25;
-animation: scanMove 6s linear infinite;
-}
-
-@keyframes scanMove {
-0% { transform: translateY(0); }
-100% { transform: translateY(8px); }
 }
 
 /* NOISE */
 .noise {
 position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-pointer-events: none;
+inset: 0;
 z-index: 3;
+pointer-events: none;
+
 background: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Random_Noise.png");
-opacity: 0.035;
+opacity: 0.03;
 mix-blend-mode: overlay;
-animation: noiseMove 0.12s infinite;
 }
 
-@keyframes noiseMove {
-0% { transform: translate(0,0); }
-25% { transform: translate(-2px,1px); }
-50% { transform: translate(1px,-1px); }
-75% { transform: translate(-1px,2px); }
-100% { transform: translate(0,0); }
-}
-
-/* CENTER */
+/* CONTENT */
 .container {
 position: absolute;
-top: 44%;
+top: 46%;
 left: 50%;
 transform: translate(-50%, -50%);
 z-index: 5;
@@ -130,41 +109,6 @@ z-index: 5;
 display: flex;
 flex-direction: column;
 align-items: center;
-
-animation: drift 4s infinite;
-}
-
-@keyframes drift {
-0%,100% { transform: translate(-50%, -50%); }
-50% { transform: translate(calc(-50% + 1px), calc(-50% - 1px)); }
-}
-
-/* IMAGE (CREPPY PRESENCE FEEL) */
-img {
-display: block;
-
-max-width: 80%;
-max-height: 60vh;
-object-fit: contain;
-
-background: transparent;
-
-filter: drop-shadow(0 0 50px rgba(255,255,255,0.03))
-        contrast(1.05);
-
-mask-image: radial-gradient(circle,
-rgba(0,0,0,1) 60%,
-rgba(0,0,0,0) 100%);
--webkit-mask-image: radial-gradient(circle,
-rgba(0,0,0,1) 60%,
-rgba(0,0,0,0) 100%);
-
-animation: breathe 6s ease-in-out infinite;
-}
-
-@keyframes breathe {
-0%,100% { transform: scale(1); }
-50% { transform: scale(1.02); }
 }
 
 /* SOCIALS */
@@ -198,21 +142,9 @@ background: white;
 color: black;
 }
 
-/* ICON */
 .icon {
 width: 18px;
 height: 18px;
-}
-
-/* RANDOM GLITCH FLASH */
-.glitchFlash {
-position: fixed;
-inset: 0;
-background: white;
-opacity: 0;
-pointer-events: none;
-z-index: 10;
-mix-blend-mode: difference;
 }
 </style>
 </head>
@@ -220,12 +152,17 @@ mix-blend-mode: difference;
 <body>
 
 <div id="boot">INITIALIZING SYSTEM...</div>
+
+<!-- FULLSCREEN BACKGROUND (KEY FIX) -->
+<div class="bg">
+  <img src="https://i.pinimg.com/originals/8e/db/ed/8edbeddba6976c96b582e546aede2b44.gif">
+</div>
+
+<div class="overlay"></div>
 <div class="noise"></div>
-<div class="glitchFlash" id="flash"></div>
 
+<!-- CONTENT -->
 <div class="container">
-
-<img id="jester" src="https://i.pinimg.com/originals/8e/db/ed/8edbeddba6976c96b582e546aede2b44.gif">
 
 <div class="socials">
 
@@ -246,19 +183,6 @@ Discord
 </div>
 
 </div>
-
-<script>
-const flash = document.getElementById("flash");
-const jester = document.getElementById("jester");
-
-/* glitch flash bursts */
-setInterval(() => {
-if (Math.random() > 0.88) {
-flash.style.opacity = 0.08;
-setTimeout(() => flash.style.opacity = 0, 80);
-}
-}, 500);
-</script>
 
 </body>
 </html>
