@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -60,6 +60,13 @@ color: black;
 width: 18px;
 height: 18px;
 }
+
+#bgAudio {
+position: fixed;
+bottom: 15px;
+left: 15px;
+z-index: 9999;
+}
 </style>
 </head>
 
@@ -67,7 +74,7 @@ height: 18px;
 
 <div class="container">
 
-<img src="https://i.pinimg.com/originals/8e/db/ed/8edbeddba6976c96b582e546aede2b44.gif" alt="GIF">
+<img src="https://i.pinimg.com/originals/8e/db/ed/8edbeddba6976c96b582e546aede2b44.gif">
 
 <div class="socials">
 
@@ -89,29 +96,22 @@ Discord
 
 </div>
 
-<audio id="bgAudio" preload="auto" loop>
+<audio id="bgAudio" controls preload="auto" loop>
 <source src="vhs.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
 </audio>
 
 <script>
 const audio = document.getElementById("bgAudio");
 audio.volume = 0.2;
 
-async function startAudio() {
-    try {
-        await audio.play();
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-window.addEventListener("load", () => {
-    startAudio();
+audio.addEventListener("canplaythrough", () => {
+    console.log("Audio loaded");
 });
 
-document.addEventListener("click", startAudio);
-document.addEventListener("keydown", startAudio);
-document.addEventListener("touchstart", startAudio);
+audio.addEventListener("error", (e) => {
+    console.log("Audio error:", e);
+});
 </script>
 
 </body>
