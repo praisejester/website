@@ -96,18 +96,23 @@ Discord
 
 </div>
 
+<!-- NO controls = no player -->
 <audio id="bgAudio" preload="auto" loop>
 <source src="vhs.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
 </audio>
 
 <script>
 const audio = document.getElementById("bgAudio");
 audio.volume = 0.2;
 
-document.addEventListener("click", () => {
-    audio.play();
-}, { once: true });
+function startAudio() {
+    audio.play().catch(() => {});
+}
+
+// works on PC + mobile
+document.addEventListener("click", startAudio, { once: true });
+document.addEventListener("touchstart", startAudio, { once: true });
+document.addEventListener("keydown", startAudio, { once: true });
 </script>
 
 </body>
