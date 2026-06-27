@@ -10,10 +10,10 @@ html, body {
 margin: 0;
 height: 100%;
 overflow: hidden;
-background: radial-gradient(circle at center,
-#0b0b0b 0%,
-#070707 55%,
-#000000 100%);
+
+/* unified dark screen */
+background: #050505;
+
 font-family: Arial, sans-serif;
 color: white;
 }
@@ -54,10 +54,11 @@ left: 0;
 width: 100%;
 height: 100%;
 pointer-events: none;
-background: radial-gradient(circle,
-rgba(0,0,0,0) 45%,
-rgba(0,0,0,0.7) 100%);
 z-index: 1;
+
+background: radial-gradient(circle,
+rgba(0,0,0,0) 40%,
+rgba(0,0,0,0.75) 100%);
 }
 
 /* SCANLINES */
@@ -73,19 +74,13 @@ z-index: 2;
 
 background: repeating-linear-gradient(
 to bottom,
-rgba(255,255,255,0.03),
-rgba(255,255,255,0.03) 1px,
-rgba(0,0,0,0) 3px,
-rgba(0,0,0,0) 6px
+rgba(255,255,255,0.02),
+rgba(255,255,255,0.02) 1px,
+transparent 3px,
+transparent 6px
 );
 
-opacity: 0.3;
-animation: scanMove 6s linear infinite;
-}
-
-@keyframes scanMove {
-0% { transform: translateY(0); }
-100% { transform: translateY(8px); }
+opacity: 0.25;
 }
 
 /* NOISE */
@@ -98,23 +93,14 @@ height: 100%;
 pointer-events: none;
 z-index: 3;
 background: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Random_Noise.png");
-opacity: 0.04;
+opacity: 0.03;
 mix-blend-mode: overlay;
-animation: noiseMove 0.15s infinite;
 }
 
-@keyframes noiseMove {
-0% { transform: translate(0,0); }
-25% { transform: translate(-2px,1px); }
-50% { transform: translate(1px,-1px); }
-75% { transform: translate(-1px,2px); }
-100% { transform: translate(0,0); }
-}
-
-/* CENTERED CONTAINER */
+/* CENTERED CONTENT */
 .container {
 position: absolute;
-top: 50%;
+top: 48%;
 left: 50%;
 transform: translate(-50%, -50%);
 z-index: 5;
@@ -123,11 +109,10 @@ display: flex;
 flex-direction: column;
 align-items: center;
 
-animation: jitter 4s infinite;
+animation: drift 4s infinite;
 }
 
-/* subtle movement */
-@keyframes jitter {
+@keyframes drift {
 0%,100% { transform: translate(-50%, -50%); }
 50% { transform: translate(calc(-50% + 1px), calc(-50% - 1px)); }
 }
@@ -138,7 +123,7 @@ max-width: 80%;
 max-height: 60vh;
 object-fit: contain;
 
-filter: drop-shadow(0 0 35px rgba(255,255,255,0.06));
+filter: drop-shadow(0 0 30px rgba(255,255,255,0.05));
 
 mask-image: radial-gradient(circle,
 rgba(0,0,0,1) 60%,
@@ -150,26 +135,29 @@ rgba(0,0,0,0) 100%);
 
 /* SOCIALS */
 .socials {
-margin-top: 20px;
+margin-top: 18px;
 display: flex;
 gap: 20px;
 }
 
+/* LINKS */
 a {
 display: flex;
 align-items: center;
 gap: 8px;
+
 text-decoration: none;
 color: white;
-font-size: 14px;
-padding: 8px 12px;
-border: 1px solid rgba(255,255,255,0.5);
-border-radius: 8px;
-transition: 0.2s;
 
 font-family: "Courier New", monospace;
+font-size: 14px;
 letter-spacing: 2px;
 text-transform: uppercase;
+
+padding: 8px 12px;
+border: 1px solid rgba(255,255,255,0.4);
+border-radius: 8px;
+transition: 0.2s;
 }
 
 a:hover {
@@ -177,6 +165,7 @@ background: white;
 color: black;
 }
 
+/* ICONS */
 .icon {
 width: 18px;
 height: 18px;
@@ -184,7 +173,7 @@ height: 18px;
 
 /* flicker */
 body {
-animation: flicker 7s infinite;
+animation: flicker 6s infinite;
 }
 
 @keyframes flicker {
@@ -197,6 +186,7 @@ animation: flicker 7s infinite;
 
 <body>
 
+<!-- BOOT SCREEN -->
 <div id="boot">INITIALIZING SYSTEM...</div>
 
 <div class="noise"></div>
@@ -225,6 +215,7 @@ Discord
 
 </div>
 
+<!-- AUDIO -->
 <audio id="bgAudio" preload="auto" loop>
   <source src="vhs.mp3" type="audio/mpeg">
 </audio>
