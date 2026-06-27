@@ -15,7 +15,7 @@ color: white;
 font-family: Arial, sans-serif;
 }
 
-/* BOOT */
+/* BOOT SCREEN */
 #boot {
 position: fixed;
 inset: 0;
@@ -39,25 +39,34 @@ animation: bootFade 3s forwards;
 100% { opacity: 0; visibility: hidden; }
 }
 
-/* === FULLSCREEN JESTER BACKGROUND === */
+/* BACKGROUND WRAPPER */
 .bg {
 position: fixed;
 inset: 0;
-z-index: 0;
 overflow: hidden;
+z-index: 0;
 }
 
+/* 🔥 ANCHORED GIF (BOTTOM FIX) */
 .bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
 
-/* THIS is what removes “box feel” */
+width: auto;
+height: 100%;
+min-width: 110%;
+
+/* make it feel part of environment */
+object-fit: cover;
+object-position: bottom;
+
+/* creepy cinematic look */
 filter: blur(1px) brightness(0.55) contrast(1.1);
-transform: scale(1.05);
 }
 
-/* DARK OVERLAY (makes everything consistent) */
+/* DARK OVERLAY */
 .overlay {
 position: fixed;
 inset: 0;
@@ -153,7 +162,6 @@ height: 18px;
 
 <div id="boot">INITIALIZING SYSTEM...</div>
 
-<!-- FULLSCREEN BACKGROUND (KEY FIX) -->
 <div class="bg">
   <img src="https://i.pinimg.com/originals/8e/db/ed/8edbeddba6976c96b582e546aede2b44.gif">
 </div>
@@ -161,7 +169,6 @@ height: 18px;
 <div class="overlay"></div>
 <div class="noise"></div>
 
-<!-- CONTENT -->
 <div class="container">
 
 <div class="socials">
