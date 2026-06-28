@@ -47,7 +47,8 @@ animation: bootShake 0.08s infinite;
 @keyframes bootFade {
 0%   { opacity: 1; }
 75%  { opacity: 1; }
-100% { opacity: 0; visibility: hidden; }
+99%  { opacity: 0; }
+100% { opacity: 0; visibility: hidden; pointer-events: none; }
 }
 
 #boot-text {
@@ -225,7 +226,12 @@ syncBarWidth();
 window.addEventListener("resize", syncBarWidth);
 
 setTimeout(() => boot.classList.add("glitch"), 1000);
-setTimeout(() => boot.remove(), 2900);
+setTimeout(() => {
+  boot.style.opacity = "0";
+  boot.style.visibility = "hidden";
+  boot.style.pointerEvents = "none";
+}, 2750);
+setTimeout(() => boot.remove(), 2800);
 </script>
 
 </body>
