@@ -143,7 +143,6 @@ z-index: 5;
 display: flex;
 flex-direction: column;
 align-items: center;
-visibility: hidden;
 }
 
 .socials {
@@ -195,7 +194,7 @@ height: 18px;
 <div class="overlay"></div>
 <div class="noise"></div>
 
-<div class="container" id="main">
+<div class="container">
 <div class="socials">
 
 <a href="https://github.com/praisejester" target="_blank">
@@ -219,7 +218,6 @@ Discord
 const boot = document.getElementById("boot");
 const bootText = document.getElementById("boot-text");
 const progressWrap = document.getElementById("progress-wrap");
-const main = document.getElementById("main");
 
 function syncBarWidth() {
   progressWrap.style.width = bootText.offsetWidth + "px";
@@ -233,10 +231,7 @@ setTimeout(() => {
   boot.style.visibility = "hidden";
   boot.style.pointerEvents = "none";
 }, 2750);
-setTimeout(() => {
-  boot.remove();
-  main.style.visibility = "visible";
-}, 2800);
+setTimeout(() => boot.remove(), 2800);
 </script>
 
 </body>
