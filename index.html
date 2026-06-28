@@ -16,7 +16,6 @@ font-family: Arial, sans-serif;
 cursor: none;
 }
 
-/* ================= FORCE NO DEFAULT CURSOR ================= */
 *,
 *::before,
 *::after {
@@ -28,7 +27,6 @@ button, input {
 cursor: none !important;
 }
 
-/* ================= CURSOR ================= */
 #cursor {
 position: fixed;
 top: 0;
@@ -40,10 +38,8 @@ background: white;
 mix-blend-mode: difference;
 pointer-events: none;
 z-index: 9999;
-
 transform: translate(-50%, -50%);
 box-shadow: 0 0 10px rgba(255,255,255,0.4);
-
 animation: cursorFlicker 1.2s infinite;
 }
 
@@ -56,25 +52,24 @@ animation: cursorFlicker 1.2s infinite;
 100% { opacity: 1; }
 }
 
-/* ================= BOOT ================= */
 #boot {
 position: fixed;
 inset: 0;
 background: black;
 display: flex;
+flex-direction: column;
 align-items: center;
 justify-content: center;
+gap: 14px;
 z-index: 999;
-
 font-family: "Courier New", monospace;
 font-size: 14px;
 letter-spacing: 4px;
 text-transform: uppercase;
-
-animation: bootFade 2.4s forwards;
+animation: bootFade 2.8s forwards;
 }
 
-#boot.glitch {
+#boot.glitch #boot-text {
 animation: bootShake 0.08s infinite;
 }
 
@@ -87,46 +82,42 @@ animation: bootShake 0.08s infinite;
 }
 
 @keyframes bootFade {
-0% { opacity: 1; }
-70% { opacity: 1; }
+0%   { opacity: 1; }
+75%  { opacity: 1; }
 100% { opacity: 0; visibility: hidden; }
 }
 
-/* ================= MULTI TEAR ================= */
-#tear {
-position: fixed;
-inset: 0;
-z-index: 998;
-pointer-events: none;
+#boot-text {
+display: inline-block;
+white-space: nowrap;
 }
 
-.tear-line {
+#progress-wrap {
+width: 0;
+height: 2px;
+background: rgba(255,255,255,0.15);
+position: relative;
+border-radius: 2px;
+}
+
+#progress-bar {
 position: absolute;
 left: 0;
-width: 100%;
-height: 3px;
-background: black;
-transform: scaleX(0);
-opacity: 1;
+top: 0;
+height: 100%;
+width: 0%;
+background: white;
+border-radius: 2px;
+box-shadow: 0 0 6px rgba(255,255,255,0.6);
+animation: fillBar 1.8s ease forwards;
+animation-delay: 0.2s;
 }
 
-#tear.active .tear-line {
-animation: tearOpen 0.7s ease forwards;
+@keyframes fillBar {
+0%   { width: 0%; }
+100% { width: 100%; }
 }
 
-.tear1 { top: 30%; animation-delay: 0.12s; }
-.tear2 { top: 50%; animation-delay: 0.18s; }
-.tear3 { top: 70%; animation-delay: 0.24s; }
-.tear4 { top: 88%; animation-delay: 0.30s; }
-
-@keyframes tearOpen {
-0% { transform: scaleX(0); opacity: 1; }
-40% { transform: scaleX(1.2); }
-70% { transform: scaleX(1); }
-100% { transform: scaleX(0); opacity: 0; }
-}
-
-/* ================= BACKGROUND ================= */
 .bg {
 position: fixed;
 inset: 0;
@@ -145,7 +136,6 @@ object-fit: cover;
 object-position: bottom;
 }
 
-/* OVERLAY */
 .overlay {
 position: fixed;
 inset: 0;
@@ -155,14 +145,12 @@ rgba(0,0,0,0.2) 20%,
 rgba(0,0,0,0.85) 100%);
 }
 
-/* SCANLINES */
 body::after {
 content: "";
 position: fixed;
 inset: 0;
 z-index: 2;
 pointer-events: none;
-
 background: repeating-linear-gradient(
 to bottom,
 rgba(255,255,255,0.03),
@@ -170,11 +158,9 @@ rgba(255,255,255,0.03) 1px,
 transparent 3px,
 transparent 6px
 );
-
 opacity: 0.25;
 }
 
-/* NOISE */
 .noise {
 position: fixed;
 inset: 0;
@@ -185,14 +171,12 @@ opacity: 0.03;
 mix-blend-mode: overlay;
 }
 
-/* ================= CONTENT ================= */
 .container {
 position: absolute;
 top: 46%;
 left: 50%;
 transform: translate(-50%, -50%);
 z-index: 5;
-
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -210,12 +194,10 @@ align-items: center;
 gap: 8px;
 text-decoration: none;
 color: white;
-
 font-family: "Courier New", monospace;
 font-size: 14px;
 letter-spacing: 2px;
 text-transform: uppercase;
-
 padding: 8px 12px;
 border: 1px solid rgba(255,255,255,0.4);
 border-radius: 8px;
@@ -226,7 +208,6 @@ background: white;
 color: black;
 }
 
-/* (YOUR ICONS STAY EXACTLY AS YOU HAD THEM — NOT REMOVED OR CHANGED) */
 .icon {
 width: 18px;
 height: 18px;
@@ -238,14 +219,12 @@ height: 18px;
 
 <div id="cursor"></div>
 
-<div id="tear">
-  <div class="tear-line tear1"></div>
-  <div class="tear-line tear2"></div>
-  <div class="tear-line tear3"></div>
-  <div class="tear-line tear4"></div>
+<div id="boot">
+  <span id="boot-text">INITIALIZING SYSTEM...</span>
+  <div id="progress-wrap">
+    <div id="progress-bar"></div>
+  </div>
 </div>
-
-<div id="boot">INITIALIZING SYSTEM...</div>
 
 <div class="bg">
   <img src="https://i.pinimg.com/originals/8e/db/ed/8edbeddba6976c96b582e546aede2b44.gif">
@@ -255,7 +234,6 @@ height: 18px;
 <div class="noise"></div>
 
 <div class="container">
-
 <div class="socials">
 
 <a href="https://github.com/praisejester" target="_blank">
@@ -273,17 +251,22 @@ Discord
 </a>
 
 </div>
-
 </div>
 
 <script>
 const boot = document.getElementById("boot");
-const tear = document.getElementById("tear");
+const bootText = document.getElementById("boot-text");
+const progressWrap = document.getElementById("progress-wrap");
 const cursor = document.getElementById("cursor");
 
+function syncBarWidth() {
+  progressWrap.style.width = bootText.offsetWidth + "px";
+}
+syncBarWidth();
+window.addEventListener("resize", syncBarWidth);
+
 setTimeout(() => boot.classList.add("glitch"), 1000);
-setTimeout(() => tear.classList.add("active"), 1900);
-setTimeout(() => boot.remove(), 2600);
+setTimeout(() => boot.remove(), 2900);
 
 let mouseX = 0, mouseY = 0;
 let curX = 0, curY = 0;
@@ -296,10 +279,8 @@ window.addEventListener("mousemove", (e) => {
 function animateCursor() {
   curX += (mouseX - curX) * 0.12;
   curY += (mouseY - curY) * 0.12;
-
   cursor.style.left = curX + "px";
   cursor.style.top = curY + "px";
-
   requestAnimationFrame(animateCursor);
 }
 
