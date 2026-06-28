@@ -16,15 +16,10 @@ font-family: Arial, sans-serif;
 cursor: none;
 }
 
-/* ================= FORCE NO DEFAULT CURSOR ================= */
+/* FORCE NO DEFAULT CURSOR ANYWHERE */
 *,
 *::before,
 *::after {
-cursor: none !important;
-}
-
-a, a:hover, a:active, a:focus,
-button, input {
 cursor: none !important;
 }
 
@@ -40,20 +35,19 @@ background: white;
 mix-blend-mode: difference;
 pointer-events: none;
 z-index: 9999;
-
 transform: translate(-50%, -50%);
 box-shadow: 0 0 10px rgba(255,255,255,0.4);
-
-animation: cursorFlicker 1.2s infinite;
 }
 
-@keyframes cursorFlicker {
-0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-20%  { opacity: 0.6; }
-40%  { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
-60%  { opacity: 0.4; }
-80%  { opacity: 1; transform: translate(-50%, -50%) scale(0.9); }
-100% { opacity: 1; }
+/* ================= STOP LINK URL PREVIEW ================= */
+a {
+text-decoration: none;
+cursor: none !important;
+}
+
+a:focus,
+a:active {
+outline: none;
 }
 
 /* ================= BOOT ================= */
@@ -65,25 +59,11 @@ display: flex;
 align-items: center;
 justify-content: center;
 z-index: 999;
-
 font-family: "Courier New", monospace;
 font-size: 14px;
 letter-spacing: 4px;
 text-transform: uppercase;
-
 animation: bootFade 2.4s forwards;
-}
-
-#boot.glitch {
-animation: bootShake 0.08s infinite;
-}
-
-@keyframes bootShake {
-0% { transform: translate(0,0); }
-25% { transform: translate(-2px,1px); }
-50% { transform: translate(2px,-1px); }
-75% { transform: translate(-1px,0); }
-100% { transform: translate(0,0); }
 }
 
 @keyframes bootFade {
@@ -92,7 +72,7 @@ animation: bootShake 0.08s infinite;
 100% { opacity: 0; visibility: hidden; }
 }
 
-/* ================= MULTI TEAR ================= */
+/* ================= TEAR EFFECT ================= */
 #tear {
 position: fixed;
 inset: 0;
@@ -107,7 +87,6 @@ width: 100%;
 height: 3px;
 background: black;
 transform: scaleX(0);
-opacity: 1;
 }
 
 #tear.active .tear-line {
@@ -146,7 +125,6 @@ object-fit: cover;
 object-position: bottom;
 }
 
-/* OVERLAY */
 .overlay {
 position: fixed;
 inset: 0;
@@ -163,7 +141,6 @@ position: fixed;
 inset: 0;
 z-index: 2;
 pointer-events: none;
-
 background: repeating-linear-gradient(
 to bottom,
 rgba(255,255,255,0.03),
@@ -171,7 +148,6 @@ rgba(255,255,255,0.03) 1px,
 transparent 3px,
 transparent 6px
 );
-
 opacity: 0.25;
 }
 
@@ -193,7 +169,6 @@ top: 46%;
 left: 50%;
 transform: translate(-50%, -50%);
 z-index: 5;
-
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -209,14 +184,11 @@ a {
 display: flex;
 align-items: center;
 gap: 8px;
-text-decoration: none;
 color: white;
-
 font-family: "Courier New", monospace;
 font-size: 14px;
 letter-spacing: 2px;
 text-transform: uppercase;
-
 padding: 8px 12px;
 border: 1px solid rgba(255,255,255,0.4);
 border-radius: 8px;
@@ -227,7 +199,6 @@ background: white;
 color: black;
 }
 
-/* (YOUR ICONS STAY EXACTLY AS YOU HAD THEM — NOT REMOVED OR CHANGED) */
 .icon {
 width: 18px;
 height: 18px;
@@ -260,14 +231,14 @@ height: 18px;
 
 <div class="socials">
 
-<a href="https://github.com/praisejester" target="_blank">
+<a href="https://github.com/praisejester" target="_blank" rel="noreferrer noopener">
 <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
 <path d="M12 .5C5.7.5.7 5.6.7 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.1c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.8 2.1 3.3 1.5.1-.7.4-1.1.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6.2 0C16.8 5.1 17.8 5.4 17.8 5.4c.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1 .8 2v3c0 .3.2.7.8.6A10.9 10.9 0 0 0 23.3 12C23.3 5.6 18.3.5 12 .5z"/>
 </svg>
 GitHub
 </a>
 
-<a href="https://discord.gg/ujuPb2NJSz" target="_blank">
+<a href="https://discord.gg/ujuPb2NJSz" target="_blank" rel="noreferrer noopener">
 <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
 <path d="M20 4.6A16 16 0 0 0 16 3l-.2.4A14 14 0 0 0 12 3a14 14 0 0 0-3.8.4L8 3A16 16 0 0 0 4 4.6C1.6 8 1 11.4 1 14.7c0 0 1.8 3 6.5 3.3l.8-1c-3-.9-4.1-2.3-4.1-2.3.3.2.7.5 1 .6 2.5 1.1 4.4 1.4 6.8 1.4s4.3-.3 6.8-1.4c.3-.1.7-.4 1-.6 0 0-1.1 1.4-4.1 2.3l.8 1C21.2 17.7 23 14.7 23 14.7c0-3.3-.6-6.7-3-10.1zM9 13.7c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7zm6 0c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7z"/>
 </svg>
@@ -283,7 +254,6 @@ const boot = document.getElementById("boot");
 const tear = document.getElementById("tear");
 const cursor = document.getElementById("cursor");
 
-setTimeout(() => boot.classList.add("glitch"), 1000);
 setTimeout(() => tear.classList.add("active"), 1900);
 setTimeout(() => boot.remove(), 2600);
 
