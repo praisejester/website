@@ -221,25 +221,25 @@ window.addEventListener("resize", syncBarWidth);
 
 setTimeout(() => boot.classList.add("glitch"), 600);
 
-// bar finishes at ~1s, wait a second then fade text and bar
+// bar done at ~1s, pause 1 second, then fade text and bar quickly
 setTimeout(() => {
-  bootText.style.transition = "opacity 0.2s ease";
+  bootText.style.transition = "opacity 0.15s ease";
   bootText.style.opacity = "0";
-  progressWrap.style.transition = "opacity 0.2s ease";
+  progressWrap.style.transition = "opacity 0.15s ease";
   progressWrap.style.opacity = "0";
 }, 2000);
 
-// fade black screen out
+// immediately after text is gone, fade the whole black screen
 setTimeout(() => {
-  boot.style.transition = "opacity 0.4s ease";
+  boot.style.transition = "opacity 0.6s ease";
   boot.style.opacity = "0";
-}, 1600);
+}, 2150);
 
-// remove boot and show icons
+// exactly when fade finishes, cut to main — no overlap, no flash
 setTimeout(() => {
   boot.remove();
   main.style.visibility = "visible";
-}, 1400);
+}, 2750);
 </script>
 
 </body>
