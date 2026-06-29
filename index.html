@@ -136,6 +136,8 @@ display: flex;
 flex-direction: column;
 align-items: center;
 visibility: hidden;
+opacity: 0;
+transition: opacity 0.6s ease;
 }
 
 .socials {
@@ -221,7 +223,7 @@ window.addEventListener("resize", syncBarWidth);
 
 setTimeout(() => boot.classList.add("glitch"), 600);
 
-// bar done at ~1s, pause 1 second, then fade text and bar quickly
+// fade text and bar out
 setTimeout(() => {
   bootText.style.transition = "opacity 0.15s ease";
   bootText.style.opacity = "0";
@@ -229,16 +231,22 @@ setTimeout(() => {
   progressWrap.style.opacity = "0";
 }, 2000);
 
-// immediately after text is gone, fade the whole black screen
+// make icons visible and start rendering them behind the boot while it fades
+setTimeout(() => {
+  main.style.visibility = "visible";
+  main.style.opacity = "0";
+}, 2100);
+
+// fade boot out and icons in at the same time
 setTimeout(() => {
   boot.style.transition = "opacity 0.6s ease";
   boot.style.opacity = "0";
+  main.style.opacity = "1";
 }, 2150);
 
-// exactly when fade finishes, cut to main — no overlap, no flash
+// remove boot from DOM
 setTimeout(() => {
   boot.remove();
-  main.style.visibility = "visible";
 }, 2750);
 </script>
 
